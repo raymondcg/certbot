@@ -1,0 +1,16 @@
+version: '3.7'
+services:
+    letsencrypt:
+      image: certbot/certbot
+      entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+      deploy:
+        replicas: 1
+        update_config:
+          parallelism: 1
+          delay: 10s
+          order: stop-first
+        restart_policy:
+          condition: on-failure
+      volumes:
+        - ../certbot/conf:/etc/letsencrypt
+        - ../certbot/www/.well-known/acme-challenge/:/home/www/certbot/.well-known/acme-challenge/
