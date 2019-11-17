@@ -12,5 +12,5 @@ services:
         restart_policy:
           condition: on-failure
       volumes:
-        - ../certbot/conf:/etc/letsencrypt
-        - ../certbot/www/.well-known/acme-challenge/:/home/www/certbot/.well-known/acme-challenge/
+        - ../certs/conf:/etc/letsencrypt
+        - ../certs/www/.well-known/acme-challenge/:/home/www/certbot/.well-known/acme-challenge/
